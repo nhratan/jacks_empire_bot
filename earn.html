@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Income & Referral Tracker</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body { font-family: Arial; padding: 20px; background: #f5f5f5; }
+    .card { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; }
+    .btn { background: #0088cc; color: white; padding: 10px; text-align: center; border-radius: 5px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Welcome!</h2>
+    <p>Your Income: <strong id="income">?0</strong></p>
+    <div class="btn" onclick="openAd()">Watch Ad & Earn</div>
+  </div>
+
+  <div class="card">
+    <h3>Your Referral Link</h3>
+    <p id="refLink">Loading...</p>
+  </div>
+
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.expand();
+
+    const userId = tg.initDataUnsafe?.user?.id;
+    const username = tg.initDataUnsafe?.user?.username;
+
+    // Referral Link Generation
+    const botUsername = "YourBotUsername"; // CHANGE THIS
+    const refLink = https://t.me/${botUsername}?start=${userId};
+    document.getElementById("refLink").innerText = refLink;
+
+    // Ad Click Event (you’ll connect to Monetag link here)
+    function openAd() {
+      window.open("https://yourmonetaglink.com", "_blank");
+      // You can call your backend or increase income count via JS here
+      let incomeElem = document.getElementById("income");
+      let currentIncome = parseInt(incomeElem.innerText.replace("?", ""));
+      incomeElem.innerText = ?${currentIncome + 1};
+    }
+  </script>
+</body>
+</html>
